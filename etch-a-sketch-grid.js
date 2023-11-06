@@ -1,13 +1,21 @@
-function makeGrid() {
-  const gridContainer = document.querySelector(".grid-container");
+function makeGrid(gridSize = 16) {
+    const body = document.querySelector('body');
 
-  for (i = 0; i < 16; i++) {
+    if (document.querySelector('.grid-container')) {
+        const gridContainer = document.querySelector('.grid-container');
+        body.removeChild(gridContainer);
+    }
+ const gridContainer = document.createElement("div");
+ gridContainer.setAttribute("class", "grid-container");
+ body.appendChild(gridContainer);
+
+  for (i = 0; i < gridSize; i++) {
     const rowContainer = document.createElement("div");
     rowContainer.setAttribute("class", "row-container");
     rowContainer.style.display = "flex";
     gridContainer.append(rowContainer);
 
-    for (j = 0; j < 16; j++) {
+    for (j = 0; j < gridSize; j++) {
       const square = document.createElement("div");
       square.setAttribute("class", "square");
       console.log("square class:", square.getAttribute("class"));
@@ -18,6 +26,7 @@ function makeGrid() {
       rowContainer.append(square);
     }
   }
+  highlightSquaresOnHover();
 }
 
 function highlightSquaresOnHover() {
@@ -31,5 +40,29 @@ function highlightSquaresOnHover() {
   });
 }
 
+function promptUserAndBuildGrid() {
+    btnCreateGrid.addEventListener("click", (event) => {
+        let userInput = prompt("Let's build a grid. How many squares per side would you like? (max: 100)");
+        let userNumber = parseInt(userInput);
+
+        if (!isNaN(userNumber) && (userNumber <= 100) && userNumber > 0) {
+            console.log("user entered a number");
+            makeGrid(userNumber);
+        } else {
+            promptUserAndBuildGrid();
+        }
+    });
+}
+
 makeGrid();
-highlightSquaresOnHover();
+
+const btnCreateGrid = document.querySelector('button');
+// btnCreateGrid.addEventListener("click", (event) => {
+//     let gridSize = prompt("Let's build a grid. How many squares per side would you like? (max: 100)");
+//     if (typeof gridSize === "number") {
+//         makeGrid(gridSize);
+//     } else {
+//         promptUserAndBuildGrid();
+//     }
+// });
+promptUserAndBuildGrid();

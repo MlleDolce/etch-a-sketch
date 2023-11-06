@@ -4,3 +4,16 @@
     width: 100%;
     justify-content: center;
 }
+
+#button-container {
+    display: flex;
+    width: 100%;
+}
+
+#create-grid {
+    width: 250px;
+    height: 60px;
+    padding: 15px;
+    font-size: 26px;
+    margin: 30px auto;
+}
