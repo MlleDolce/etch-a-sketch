@@ -35,7 +35,7 @@ function highlightSquaresOnHover() {
   squares.forEach((square) => {
     square.addEventListener("mouseover", (event) => {
       const square = event.target;
-      square.style.backgroundColor = "yellow";
+      square.style.backgroundColor = createRandomColor();
     });
   });
 }
@@ -54,15 +54,17 @@ function promptUserAndBuildGrid() {
     });
 }
 
+function createRandomColor() {
+    let color = "#";
+    const hexLetters = "0123456789ABCDEF";
+
+    for (i = 0; i < 6; i ++) {
+        color += hexLetters[(Math.floor(Math.random() * 16))];
+    }
+    return color;
+}
+
 makeGrid();
 
 const btnCreateGrid = document.querySelector('button');
-// btnCreateGrid.addEventListener("click", (event) => {
-//     let gridSize = prompt("Let's build a grid. How many squares per side would you like? (max: 100)");
-//     if (typeof gridSize === "number") {
-//         makeGrid(gridSize);
-//     } else {
-//         promptUserAndBuildGrid();
-//     }
-// });
 promptUserAndBuildGrid();
