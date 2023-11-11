@@ -1,4 +1,4 @@
-function makeGrid(gridSize = 16) {
+function makeGrid(gridSize = 22) {
 
   removeGridIfGridAlreadyExists();
 
@@ -7,7 +7,7 @@ function makeGrid(gridSize = 16) {
   gridContainer.style.width = `${gridSize * 10}px`;
 
   const body = document.querySelector("body");
-  body.appendChild(gridContainer);
+  body.prepend(gridContainer);
 
   for (i = 0; i < gridSize; i++) {
     const rowContainer = document.createElement("div");
@@ -121,17 +121,11 @@ const defaultValue = 0;
 
 makeGrid();
 
-// const btnCreateGrid = document.getElementById("create-grid");
-const slider = document.getElementById("valueSlider");
+const slider = document.getElementById("value-slider");
 const btnDraw = document.getElementById("draw");
 const btnRainbow = document.getElementById("rainbow");
 const btnErase = document.getElementById("erase");
 const btnClear = document.getElementById("clear");
-
-// btnCreateGrid.addEventListener("click", () => {
-//   promptUserAndBuildGrid();
-// });
-
 
 slider.addEventListener("input", () => {
   let selectedValue = slider.value;

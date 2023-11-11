@@ -10,19 +10,18 @@
   </head>
   <body>
     <div class="grid-container"></div>
+    <div id="input-container">
+      <input
+        type="range"
+        min="5"
+        max="44"
+        value="22"
+        id="value-slider"
+        oninput="makeGrid(this.value)"
+      />
+      <p id="selectedGridValue">22 x 22</p>
+    </div>
     <div id="button-container">
-      <!-- <button id="create-grid">Create Grid</button> -->
-      <div id="input-container">
-        <input
-          type="range"
-          min="0"
-          max="100"
-          value="50"
-          id="valueSlider"
-          oninput="makeGrid(this.value)"
-        />
-        <p id="selectedGridValue">50 x 50</p>
-      </div>
       <button id="draw">Draw</button>
       <button id="rainbow">Rainbow</button>
       <button id="erase">Erase</button>
