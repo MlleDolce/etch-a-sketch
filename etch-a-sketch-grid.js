@@ -1,36 +1,60 @@
 function makeGrid(gridSize = 16) {
-  const body = document.querySelector("body");
 
-  if (document.querySelector(".grid-container")) {
-    const gridContainer = document.querySelector(".grid-container");
-    body.removeChild(gridContainer);
-  }
+  removeGridIfGridAlreadyExists();
+
   const gridContainer = document.createElement("div");
   gridContainer.setAttribute("class", "grid-container");
+  gridContainer.style.width = `${gridSize * 10}px`;
+
+  const body = document.querySelector("body");
   body.appendChild(gridContainer);
 
   for (i = 0; i < gridSize; i++) {
     const rowContainer = document.createElement("div");
     rowContainer.setAttribute("class", "row-container");
     rowContainer.style.display = "flex";
+    rowContainer.style.alignContent = "stretch";
     gridContainer.append(rowContainer);
 
     for (j = 0; j < gridSize; j++) {
       const square = document.createElement("div");
       square.setAttribute("class", "square");
       square.setAttribute("id", `${(i + 1) * j}`);
+
       console.log("square class:", square.getAttribute("class"));
-      square.style.border = "1px blue solid";
-      square.style.width = "60px";
-      square.style.height = "60px";
+
+      square.style.width = "10px";
+      square.style.height = "10px";
       square.style.flex = "1";
+
       rowContainer.append(square);
     }
   }
-  highlightSquaresOnHover();
+  draw();
 }
 
-function highlightSquaresOnHover(currentColor = chroma("#ffffe6")) {
+function removeGridIfGridAlreadyExists() {
+  if (document.querySelector(".grid-container")) {
+    const gridContainer = document.querySelector(".grid-container");
+    document.querySelector("body").removeChild(gridContainer);
+  }
+}
+
+function promptUserAndBuildGrid() {
+  let userInput = prompt(
+    "Let's build a grid. How many squares per side would you like? (max: 100)"
+  );
+  let userNumber = parseInt(userInput);
+
+  if (!isNaN(userNumber) && userNumber <= 100 && userNumber > 0) {
+    console.log("user entered a number");
+    makeGrid(userNumber);
+  } else {
+    promptUserAndBuildGrid();
+  }
+}
+
+function highlightSquaresOnHover(currentColor = chroma("#eeeeee")) {
   const squares = document.querySelectorAll(".square");
 
   squares.forEach((square) => {
@@ -45,24 +69,18 @@ function highlightSquaresOnHover(currentColor = chroma("#ffffe6")) {
       const increasedSaturationString = increasedSaturation.css();
 
       square.style.backgroundColor = increasedSaturationString;
-      //   square.style.backgroundColor = createRandomColor();
     });
   });
 }
 
-function promptUserAndBuildGrid() {
-  btnCreateGrid.addEventListener("click", (event) => {
-    let userInput = prompt(
-      "Let's build a grid. How many squares per side would you like? (max: 100)"
-    );
-    let userNumber = parseInt(userInput);
+function draw() {
+  const squares = document.querySelectorAll(".square");
 
-    if (!isNaN(userNumber) && userNumber <= 100 && userNumber > 0) {
-      console.log("user entered a number");
-      makeGrid(userNumber);
-    } else {
-      promptUserAndBuildGrid();
-    }
+  squares.forEach((square) => {
+    square.addEventListener("mouseover", (event) => {
+      const square = event.target;
+      square.style.backgroundColor = "black";
+    });
   });
 }
 
@@ -76,10 +94,62 @@ function createRandomColor() {
   return color;
 }
 
+function drawRainbow() {
+  const squares = document.querySelectorAll(".square");
+
+  squares.forEach((square) => {
+    square.addEventListener("mouseover", (event) => {
+      const square = event.target;
+      square.style.backgroundColor = createRandomColor();
+    });
+  });
+}
+
+function erase() {
+  const squares = document.querySelectorAll(".square");
+
+  squares.forEach((square) => {
+    square.addEventListener("mouseover", (event) => {
+      const square = event.target;
+      square.style.backgroundColor = "white";
+    });
+  });
+}
+
 let currentColor;
 const defaultValue = 0;
 
 makeGrid();
 
-const btnCreateGrid = document.querySelector("button");
-promptUserAndBuildGrid();
+// const btnCreateGrid = document.getElementById("create-grid");
+const slider = document.getElementById("valueSlider");
+const btnDraw = document.getElementById("draw");
+const btnRainbow = document.getElementById("rainbow");
+const btnErase = document.getElementById("erase");
+const btnClear = document.getElementById("clear");
+
+// btnCreateGrid.addEventListener("click", () => {
+//   promptUserAndBuildGrid();
+// });
+
+
+slider.addEventListener("input", () => {
+  let selectedValue = slider.value;
+  const para = document.getElementById("selectedGridValue");
+  para.textContent = `${selectedValue} x ${selectedValue}`;
+});
+btnDraw.addEventListener("click", () => {
+  draw();
+});
+btnRainbow.addEventListener("click", () => {
+  drawRainbow();
+});
+btnErase.addEventListener("click", () => {
+  erase();
+});
+btnClear.addEventListener("click", () => {
+  const rows = document.querySelectorAll(".row-container");
+  const gridSize = rows.length; 
+  console.log("gridSize:", gridSize);
+  makeGrid(gridSize);
+});

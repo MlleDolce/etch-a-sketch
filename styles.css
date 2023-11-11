@@ -1,11 +1,16 @@
 .grid-container {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 70%;
     justify-content: center;
+    border: 10px black solid;
+    border-radius: 20px;
+    margin: auto;
+    margin-bottom: 100px;
 }
 
 #button-container {
+    margin: 25px 0;
     display: flex;
     width: 100%;
 }
@@ -16,4 +21,9 @@
     padding: 15px;
     font-size: 26px;
     margin: 30px auto;
+}
+
+#input-container {
+    display: flex;
+    flex-direction: column;
 }
