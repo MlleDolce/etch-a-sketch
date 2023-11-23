@@ -1,31 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
   <link rel="stylesheet" href="styles.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
   <script src="etch-a-sketch-grid.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.1/chroma.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.1/chroma.min.js"></script> -->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Etch A Sketch</title>
   </head>
   <body>
-    <div class="grid-container"></div>
-    <div id="input-container">
-      <input
-        type="range"
-        min="5"
-        max="44"
-        value="22"
-        id="value-slider"
-        oninput="makeGrid(this.value)"
-      />
-      <p id="selectedGridValue">22 x 22</p>
-    </div>
-    <div id="button-container">
-      <button id="draw">Draw</button>
-      <button id="rainbow">Rainbow</button>
-      <button id="erase">Erase</button>
-      <button id="clear">Clear</button>
-    </div>
+    <main id="etch-a-sketch-container">
+      <h1 id="title">Etch A Sketch</h1>
+      <div class="grid-container"></div>
+      <div id="button-container">
+        <button id="draw">Draw</button>
+        <button id="rainbow">Rainbow</button>
+        <button id="erase">Erase</button>
+        <button id="clear">Clear</button>
+      </div>
+        <div id="input-container">
+          <div id="left-circle"></div>
+          <input
+            type="range"
+            min="1"
+            max="99"
+            value="22"
+            id="value-slider"
+            oninput="makeGrid(this.value)"
+          />
+          <p id="selectedGridValue">22 x 22</p>
+          <div id="right-circle"></div>
+        </div>
+    </main>
+    <footer>
+      <p>
+        ©2023 MlleDolce
+        <a href="https://github.com/MlleDolce" target="_blank"
+          ><i class="fab fa-github"></i
+        ></a>
+      </p>
+    </footer>
   </body>
 </html>

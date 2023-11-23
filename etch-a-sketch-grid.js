@@ -4,10 +4,12 @@ function makeGrid(gridSize = 22) {
 
   const gridContainer = document.createElement("div");
   gridContainer.setAttribute("class", "grid-container");
-  gridContainer.style.width = `${gridSize * 10}px`;
+  gridContainer.style.width = "350px";
+  gridContainer.style.height = "350px";
 
-  const body = document.querySelector("body");
-  body.prepend(gridContainer);
+  const main = document.querySelector("main");
+  const btnContainer = document.getElementById("button-container");
+  main.insertBefore(gridContainer, btnContainer);
 
   for (i = 0; i < gridSize; i++) {
     const rowContainer = document.createElement("div");
@@ -19,14 +21,13 @@ function makeGrid(gridSize = 22) {
     for (j = 0; j < gridSize; j++) {
       const square = document.createElement("div");
       square.setAttribute("class", "square");
-      square.setAttribute("id", `${(i + 1) * j}`);
+      square.setAttribute("id", `${(i * gridSize) + (j + 1)}`);
 
       console.log("square class:", square.getAttribute("class"));
+      console.log("square id:", square.getAttribute("id"));
 
-      square.style.width = "10px";
-      square.style.height = "10px";
-      square.style.flex = "1";
-
+      square.style.flex = "1 1 auto";
+      square.style.aspectRatio = "1";
       rowContainer.append(square);
     }
   }
@@ -36,7 +37,7 @@ function makeGrid(gridSize = 22) {
 function removeGridIfGridAlreadyExists() {
   if (document.querySelector(".grid-container")) {
     const gridContainer = document.querySelector(".grid-container");
-    document.querySelector("body").removeChild(gridContainer);
+    document.querySelector("main").removeChild(gridContainer);
   }
 }
 
